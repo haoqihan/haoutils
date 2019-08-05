@@ -56,7 +56,7 @@ class SSH:
         可以发送任何命令，如：DPI或接口机命令都可以
         :cmd 命令
         """
-        self.channel.send(cmd)
+        self.channel.send(cmd + "\r")
         res = ''
         while True:
             time.sleep(0.2)
@@ -66,6 +66,7 @@ class SSH:
                 break
             if res.strip().endswith("(yes/no)?"):
                 self.channel.send("yes")
+        print("结束")
         return res
 
     def close(self):
@@ -73,3 +74,12 @@ class SSH:
         关闭链接
         """
         self.tran.close()
+
+
+if __name__ == "__main__":
+    cen = SSH("39.105.162.164",22,"root","hao142951.")
+    cen.client_other()
+    red = cen.send_string("cd /etc")
+    print(red)
+    res = cen.send_string("ls")
+    print(res.replace("[01;34",""))

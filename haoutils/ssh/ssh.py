@@ -74,12 +74,3 @@ class SSH:
         关闭链接
         """
         self.tran.close()
-
-
-if __name__ == "__main__":
-    cen = SSH("39.105.162.164",22,"root","hao142951.")
-    cen.client_other()
-    red = cen.send_string("cd /etc")
-    print(red)
-    res = cen.send_string("ls")
-    print(res.replace("[01;34",""))
